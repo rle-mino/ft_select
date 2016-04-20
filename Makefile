@@ -6,7 +6,7 @@
 #    By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/18 13:55:13 by rle-mino          #+#    #+#              #
-#    Updated: 2016/04/19 17:18:25 by rle-mino         ###   ########.fr        #
+#    Updated: 2016/04/20 19:32:53 by rle-mino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC		=				main.c			\
 						sel_env.c		\
 						sel_error.c		\
 						argv_to_list.c	\
+						sel_display.c	\
 
 OBJ		=				$(SRC:.c=.o)
 
