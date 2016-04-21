@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 18:30:49 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/21 00:22:39 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/21 21:21:26 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,29 @@ static int					anarg(t_arg *arg,
 ***	}
 */
 
-static void					last_arg(t_arg *tmp)
+void						display_arg(t_arg *arg,
+										int max_len,
+										struct winsize *io)
 {
-	ft_putstr_fd(tmp->name, 2);
-	ft_putchar_fd('\n', 2);
-}
-
-void						display_arg(t_arg *arg, int max_len)
-{
-	struct winsize	w;
 	int				i;
+	int				y;
 	t_arg			*tmp;
 
-	i = -1;
-	ioctl(0, TIOCGWINSZ, &w);
+	i = 0;
+	y = 0;
+	ioctl(0, TIOCGWINSZ, io);
 	tmp = arg;
-	while (tmp != arg || i == -1)
+	while (tmp != arg || i == 0)
 	{
-		if (i >= w.ws_col - 10 && !(i = 0))
+		tmp->x = i;
+		tmp->y = y;
+		if (i + ft_strlen(tmp->name) >= io->ws_col - 10 && !(i = 0) && ++y)
+		{
+			tmp->x = i;
+			tmp->y = y;
 			ft_putchar_fd('\n', 1);
-		if (tmp->next == arg)
-			last_arg(tmp);
-		else
-			i += anarg(tmp, max_len, w.ws_col, i);
+		}
+		i += anarg(tmp, max_len, io->ws_col, i);
 		tmp = tmp->next;
 	}
 }
