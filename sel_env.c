@@ -6,13 +6,13 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:19:25 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/21 21:57:28 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/22 21:12:15 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static void		cursor_sw(void)
+static void				cursor_sw(void)
 {
 	static	int	i = 1;
 	char		buffer1[1024];
@@ -26,71 +26,70 @@ static void		cursor_sw(void)
 	i = i ^ 1;
 }
 
-static int		reset_env(struct termios reset)
+static int				init_term(struct termios **term, struct termios **reset)
 {
-	ft_putstr("\033[?1049l");
-	tcsetattr(1, TCSANOW, &reset);
-	cursor_sw();
+	if (!(*term = ft_memalloc(sizeof(struct termios))))
+		sel_error(MALLER);
+	if (!(*reset = ft_memalloc(sizeof(struct termios))))
+		sel_error(MALLER);
+	if (tcgetattr(0, *term) == -1)
+		return (0);
+	if (tcgetattr(0, *reset) == -1)
+		return (0);
 	return (1);
 }
 
-static void		cursor_move(int *pos, t_select *sel)
+static int				set_env(struct termios *term,
+						struct termios *reset,
+						char *term_name,
+						int i)
 {
-	char	buffer1[1024];
-	char	*buffer2;
-
-	buffer2 = buffer1;
-	tputs(tgoto(tgetstr("cm", &buffer2), pos[0], pos[1]), 1, putint);
-	tputs(tgetstr("us", &buffer2), 1, putint);
-	ft_putstr(sel->first->name);
-	tputs(tgetstr("ue", &buffer2), 1, putint);
-	tputs(tgoto(tgetstr("cm", &buffer2), pos[0], pos[1]), 1, putint);
+	if (i % 2 == 0)
+	{
+		if (tgetent(NULL, term_name) == ERR)
+			return (0);
+		term->c_lflag &= ~(ICANON);
+		term->c_lflag &= ~(ECHO);
+		tcsetattr(0, TCSADRAIN, term);
+		ft_putstr("\033[?1049h\033[H");
+		cursor_sw();
+		return (1);
+	}
+	else
+	{
+		ft_putstr("\033[?1049l");
+		tcsetattr(1, TCSANOW, reset);
+		cursor_sw();
+		return (1);
+	}
 }
 
-static void		ft_select(t_select *sel)
+int						env_sw(void)
 {
-	char	buffer[6];
+	static int				i = 0;
+	static struct termios	*term;
+	static struct termios	*reset;
+	char					*term_name;
+
+	term_name = getenv("TERM");
+	if (!term)
+		if (!(init_term(&term, &reset)))
+			return (0);
+	if (!(set_env(term, reset, term_name, i)))
+		return (0);
+	i = i ^ 1;
+	return (0);
+}
+
+int						init_env(t_select *sel)
+{
 	int		*pos;
 
 	if (!(pos = ft_memalloc(sizeof(int) * 2)))
 		sel_error(MALLER);
-	display_arg(sel->first, sel->max_len, sel->io);
-	while (42)
-	{
-		cursor_move(pos, sel);
-		buffer[1] = 0;
-		read(0, buffer, 5);
-		if (buffer[0] == 033 && buffer[1] == 0)
-			return ;
-		else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'C')
-			move_right(pos, sel);
-		else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'D')
-			move_left(pos, sel);
-		else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'A')
-			move_up(pos, sel);
-		else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'B')
-			move_down(pos, sel);
-	}
-}
-
-int				init_env(t_select *sel)
-{
-	struct termios	term;
-	struct termios	reset;
-
-	sel->term_name = getenv("TERM");
-	if (tcgetattr(0, &term) == -1)
-		return (sel_error(ENV_ERROR));
-	if (tgetent(NULL, sel->term_name) == ERR)
-		return (sel_error(ENV_ERROR));
-	reset = term;
-	term.c_lflag &= ~(ICANON);
-	term.c_lflag &= ~(ECHO);
 	if (!(sel->io = ft_memalloc(sizeof(struct winsize))))
 		sel_error(MALLER);
-	ft_putstr("\033[?1049h\033[H");
-	tcsetattr(0, TCSADRAIN, &term);
-	cursor_sw();
-	ft_select(sel);
-	return (reset_env(reset));
+	env_sw();
+	ft_select(sel, pos);
+	return (env_sw());
 }

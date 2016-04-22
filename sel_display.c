@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 18:30:49 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/21 21:21:26 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/22 18:39:44 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@ static int					anarg(t_arg *arg,
 									int pos)
 {
 	size_t		i;
+	char		buffer[1024];
+	char		*buffer2;
 
+	buffer2 = buffer;
 	i = ft_strlen(arg->name);
+	if (arg->selected == 1)
+		tputs(tgetstr("so", &buffer2), 1, putint);
 	ft_putstr_fd(arg->name, 1);
+	if (arg->selected == 1)
+		tputs(tgetstr("se", &buffer2), 1, putint);
 	if (is_last(pos + ft_strlen(arg->name), max_col))
 		return (i);
 	while (i < (size_t)max_len + 2)
@@ -35,20 +42,6 @@ static int					anarg(t_arg *arg,
 	}
 	return (i);
 }
-
-/*
-***	t_arg				*get_next_arg(t_arg *tmp_x, size_t ws_row)
-***	{
-***		t_arg		*to_ret;
-***		size_t		i;
-***
-***		i = -1;
-***		to_ret = tmp_x;
-***		while (++i < ws_row && to_ret)
-***			to_ret = to_ret->next;
-***		return (to_ret);
-***	}
-*/
 
 void						display_arg(t_arg *arg,
 										int max_len,
