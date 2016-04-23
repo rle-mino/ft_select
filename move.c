@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 16:59:19 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/22 20:11:40 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/23 22:07:39 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void				put_move(t_select *sel)
 	buffer2 = buffer;
 	if (sel->first->selected == 1)
 		tputs(tgetstr("so", &buffer2), 1, putint);
-	ft_putstr_fd(sel->first->name, 1);
+	ft_putstr_fd(sel->first->name, get_fd(-1));
 	if (sel->first->selected == 1)
 		tputs(tgetstr("se", &buffer2), 1, putint);
 }

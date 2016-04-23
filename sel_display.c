@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 18:30:49 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/22 18:39:44 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/23 22:07:04 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static int					is_last(int pos, int max)
 }
 
 static int					anarg(t_arg *arg,
-									int max_len,
-									size_t max_col,
+									t_select *sel,
 									int pos)
 {
 	size_t		i;
@@ -30,22 +29,20 @@ static int					anarg(t_arg *arg,
 	i = ft_strlen(arg->name);
 	if (arg->selected == 1)
 		tputs(tgetstr("so", &buffer2), 1, putint);
-	ft_putstr_fd(arg->name, 1);
+	ft_putstr_fd(arg->name, get_fd(-1));
 	if (arg->selected == 1)
 		tputs(tgetstr("se", &buffer2), 1, putint);
-	if (is_last(pos + ft_strlen(arg->name), max_col))
+	if (is_last(pos + ft_strlen(arg->name), sel->io->ws_col))
 		return (i);
-	while (i < (size_t)max_len + 2)
+	while (i < (size_t)sel->max_len + 2)
 	{
-		ft_putchar_fd(' ', 1);
+		ft_putchar_fd(' ', get_fd(-1));
 		i++;
 	}
 	return (i);
 }
 
-void						display_arg(t_arg *arg,
-										int max_len,
-										struct winsize *io)
+void						display_arg(t_arg *arg, t_select *sel)
 {
 	int				i;
 	int				y;
@@ -53,19 +50,19 @@ void						display_arg(t_arg *arg,
 
 	i = 0;
 	y = 0;
-	ioctl(0, TIOCGWINSZ, io);
+	ioctl(0, TIOCGWINSZ, sel->io);
 	tmp = arg;
 	while (tmp != arg || i == 0)
 	{
 		tmp->x = i;
 		tmp->y = y;
-		if (i + ft_strlen(tmp->name) >= io->ws_col - 10 && !(i = 0) && ++y)
+		if (i + ft_strlen(tmp->name) >= sel->io->ws_col - 10 && !(i = 0) && ++y)
 		{
 			tmp->x = i;
 			tmp->y = y;
-			ft_putchar_fd('\n', 1);
+			ft_putchar_fd('\n', get_fd(-1));
 		}
-		i += anarg(tmp, max_len, io->ws_col, i);
+		i += anarg(tmp, sel, i);
 		tmp = tmp->next;
 	}
 }

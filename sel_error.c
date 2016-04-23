@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sel_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 18:57:59 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/18 23:02:06 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/23 14:59:50 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		sel_error(int info)
 	if (info == ENV_ERROR)
 	{
 		ft_putendl_fd("ENVIRONMENT NOT AVAILABLE", 2);
+		exit(EXIT_FAILURE);
 	}
 	return (0);
 }

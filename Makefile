@@ -6,7 +6,7 @@
 #    By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/18 13:55:13 by rle-mino          #+#    #+#              #
-#    Updated: 2016/04/22 18:22:06 by rle-mino         ###   ########.fr        #
+#    Updated: 2016/04/23 22:05:13 by rle-mino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ SRC		=				main.c			\
 						putint.c		\
 						move.c			\
 						select.c		\
+						sel_signal.c	\
+						get_var.c		\
 
 OBJ		=				$(SRC:.c=.o)
 

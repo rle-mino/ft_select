@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 18:09:56 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/22 21:36:40 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/23 22:08:16 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void			cursor_move(int *pos, t_select *sel)
 	tputs(tgetstr("us", &buffer2), 1, putint);
 	if (sel->first->selected == 1)
 		tputs(tgetstr("so", &buffer2), 1, putint);
-	ft_putstr_fd(sel->first->name, 1);
+	ft_putstr_fd(sel->first->name, get_fd(-1));
 	if (sel->first->selected == 1)
 		tputs(tgetstr("se", &buffer2), 1, putint);
 	tputs(tgetstr("ue", &buffer2), 1, putint);
@@ -39,19 +39,15 @@ static void			select_arg(t_select *sel, int *pos)
 	if (sel->first->selected)
 	{
 		tputs(tgetstr("so", &buffer2), 1, putint);
-		ft_putstr_fd(sel->first->name, 1);
+		ft_putstr_fd(sel->first->name, get_fd(-1));
 		tputs(tgetstr("se", &buffer2), 1, putint);
-		sel->first = sel->first->next;
-		pos[0] = sel->first->x;
-		pos[1] = sel->first->y;
-		cursor_move(pos, sel);
 	}
 	else
-	{
-		ft_putstr_fd(sel->first->name, 1);
-		tputs(tgoto(tgetstr("cm", &buffer2), sel->first->x, sel->first->y),
-															1, putint);
-	}
+		ft_putstr_fd(sel->first->name, get_fd(-1));
+	sel->first = sel->first->next;
+	pos[0] = sel->first->x;
+	pos[1] = sel->first->y;
+	cursor_move(pos, sel);
 }
 
 static void			delete_arg(t_select *sel, int *pos)
@@ -74,7 +70,7 @@ static void			delete_arg(t_select *sel, int *pos)
 		free(sel->tmp->name);
 		free(sel->tmp);
 		tputs(tgetstr("cl", &buffer2), 1, putint);
-		display_arg(get_first(sel->first, sel->nb_arg), sel->max_len, sel->io);
+		display_arg(get_first(sel->first, sel->nb_arg), sel);
 		pos[0] = sel->first->x;
 		pos[1] = sel->first->y;
 		sel->nb_arg--;
@@ -94,7 +90,7 @@ void				ft_select(t_select *sel, int *pos)
 {
 	char	buffer[6];
 
-	display_arg(sel->first, sel->max_len, sel->io);
+	display_arg(sel->first, sel);
 	while (42)
 	{
 		cursor_move(pos, sel);
@@ -114,5 +110,7 @@ void				ft_select(t_select *sel, int *pos)
 			select_arg(sel, pos);
 		else if (is_del_or_back(buffer))
 			delete_arg(sel, pos);
+		//else if (buffer[0] == '\n' && buffer[1] == 0)
+		//	return_selected();
 	}
 }
