@@ -6,7 +6,7 @@
 #    By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/18 13:55:13 by rle-mino          #+#    #+#              #
-#    Updated: 2016/04/24 11:41:25 by rle-mino         ###   ########.fr        #
+#    Updated: 2016/04/24 15:16:43 by rle-mino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ all: $(NAME)
 	gcc -c $< -o $@ -I includes $(FLAGS)
 
 clean:
+	make -C libft fclean
 	rm -rf $(OBJ)
 
 fclean: clean
