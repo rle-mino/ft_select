@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 18:09:56 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 11:33:16 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 14:29:16 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void				cursor_move(int *pos, t_select *sel)
 	char	buffer1[1024];
 	char	*buffer2;
 
+	if (sel->space == 0)
+		return ;
 	buffer2 = buffer1;
 	tputs(tgoto(tgetstr("cm", &buffer2), pos[0], pos[1]), 1, putint);
 	tputs(tgetstr("us", &buffer2), 1, putint);
@@ -89,7 +91,9 @@ int					is_del_or_back(char *buffer)
 void				ft_select(t_select *sel, int *pos)
 {
 	char	buffer[6];
+	int		i;
 
+	i = 0;
 	display_arg(sel->first, sel);
 	while (42)
 	{

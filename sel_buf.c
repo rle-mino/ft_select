@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 11:22:24 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 11:36:42 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 12:59:57 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void			sel_buf(char *buffer, int *pos, t_select *sel)
 {
 	if (buffer[0] == 033 && buffer[1] == 0)
 		end_select(sel, W_NORET);
+	if (sel->space == 0)
+		return ;
 	else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'C')
 		move_right(pos, sel);
 	else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'D')

@@ -6,20 +6,41 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 18:30:49 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/23 22:07:04 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 15:14:00 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static int					is_last(int pos, int max)
+static int				is_last(int pos, int max)
 {
 	return ((max - pos) < 10 ? 1 : 0);
 }
 
-static int					anarg(t_arg *arg,
-									t_select *sel,
-									int pos)
+static int				no_space(t_select *sel)
+{
+	char		*buffer2;
+	char		buffer[1024];
+
+	if (sel->io->ws_col - 10 < sel->max_len + 2 ||
+		((sel->io->ws_col - 10) * sel->io->ws_row) < sel->nb_arg *
+		(sel->max_len + 2) || (((sel->max_len + 2) * sel->io->ws_row) /
+		((sel->io->ws_col - 10) / (sel->max_len + 2)) >
+		(sel->io->ws_row * (sel->io->ws_col - 10))))
+	{
+		buffer2 = buffer;
+		tputs(tgetstr("cl", &buffer2), 1, putint);
+		ft_putstr_fd("NO SUFFICIENT SPACE", get_fd(-1));
+		sel->space = 0;
+		return (1);
+	}
+	sel->space = 1;
+	return (0);
+}
+
+static int				anarg(t_arg *arg,
+								t_select *sel,
+								int pos)
 {
 	size_t		i;
 	char		buffer[1024];
@@ -42,7 +63,7 @@ static int					anarg(t_arg *arg,
 	return (i);
 }
 
-void						display_arg(t_arg *arg, t_select *sel)
+void					display_arg(t_arg *arg, t_select *sel)
 {
 	int				i;
 	int				y;
@@ -51,13 +72,17 @@ void						display_arg(t_arg *arg, t_select *sel)
 	i = 0;
 	y = 0;
 	ioctl(0, TIOCGWINSZ, sel->io);
+	if (no_space(sel))
+		return ;
 	tmp = arg;
 	while (tmp != arg || i == 0)
 	{
 		tmp->x = i;
 		tmp->y = y;
-		if (i + ft_strlen(tmp->name) >= sel->io->ws_col - 10 && !(i = 0) && ++y)
+		if ((i + sel->max_len) >= (sel->io->ws_col - 1))
 		{
+			i = 0;
+			++y;
 			tmp->x = i;
 			tmp->y = y;
 			ft_putchar_fd('\n', get_fd(-1));

@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:02:48 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 11:36:35 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 12:54:42 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_select
 	struct winsize	*io;
 	int				nb_arg;
 	struct s_args	*tmp;
+	int				space;
 }					t_select;
 
 int					sel_error(int info);
@@ -68,6 +69,7 @@ t_arg				*get_first(t_arg *args, int nb_arg);
 void				res_and_quit(int sig);
 void				suspend(int sig);
 void				restart(int sig);
+void				restart_display(int sig);
 int					get_fd(int fd);
 t_select			*get_sel(t_select *sel);
 t_arg				*get_list(t_arg *l);
