@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:02:48 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/23 22:03:46 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 11:36:35 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ enum
 {
 	NO_ARG,
 	MALLER,
-	ENV_ERROR
+	ENV_ERROR,
+	W_RET,
+	W_NORET
 };
 
 typedef struct		s_args
@@ -56,6 +58,7 @@ void				ft_select(t_select *sel, int *pos);
 void				argv_to_list(char **argv, t_select *sel);
 void				display_arg(t_arg *arg, t_select *sel);
 int					putint(int c);
+void				cursor_move(int *pos, t_select *sel);
 void				move_right(int *pos, t_select *sel);
 void				move_left(int *pos, t_select *sel);
 void				move_up(int *pos, t_select *sel);
@@ -68,5 +71,10 @@ void				restart(int sig);
 int					get_fd(int fd);
 t_select			*get_sel(t_select *sel);
 t_arg				*get_list(t_arg *l);
+int					is_del_or_back(char *buffer);
+void				delete_arg(t_select *sel, int *pos);
+void				select_arg(t_select *sel, int *pos);
+void				sel_buf(char *buffer, int *pos, t_select *sel);
+void				end_select(t_select *sel, int info);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 17:40:25 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/23 22:05:45 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 11:19:42 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ void		restart(int sig)
 	t_select	*sel;
 	char		buffer[1024];
 	char		*buffer2;
+	int			pos[2];
 
 	(void)sig;
+	ft_bzero(pos, sizeof(pos));
 	buffer2 = buffer;
 	sel = get_sel(NULL);
 	env_sw();
 	signal(SIGTSTP, suspend);
 	sel->first = get_first(sel->first, sel->nb_arg);
 	display_arg(sel->first, sel);
-	tputs(tgoto(tgetstr("cm", &buffer2), 0, 0), 1, putint);
+	cursor_move(pos, sel);
 }

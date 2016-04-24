@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:19:25 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/23 22:06:27 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 11:42:44 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ int						init_env(t_select *sel)
 	if (signal(SIGCONT, restart))
 		display_arg(sel->first, sel);
 	ft_select(sel, pos);
-	return (env_sw());
+	return (1);
 }

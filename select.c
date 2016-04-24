@@ -6,13 +6,13 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 18:09:56 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/23 22:08:16 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 11:33:16 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static void			cursor_move(int *pos, t_select *sel)
+void				cursor_move(int *pos, t_select *sel)
 {
 	char	buffer1[1024];
 	char	*buffer2;
@@ -29,7 +29,7 @@ static void			cursor_move(int *pos, t_select *sel)
 	tputs(tgoto(tgetstr("cm", &buffer2), pos[0], pos[1]), 1, putint);
 }
 
-static void			select_arg(t_select *sel, int *pos)
+void				select_arg(t_select *sel, int *pos)
 {
 	char	buffer1[1024];
 	char	*buffer2;
@@ -50,7 +50,7 @@ static void			select_arg(t_select *sel, int *pos)
 	cursor_move(pos, sel);
 }
 
-static void			delete_arg(t_select *sel, int *pos)
+void				delete_arg(t_select *sel, int *pos)
 {
 	char	buffer1[1024];
 	char	*buffer2;
@@ -77,7 +77,7 @@ static void			delete_arg(t_select *sel, int *pos)
 	}
 }
 
-static int			is_del_or_back(char *buffer)
+int					is_del_or_back(char *buffer)
 {
 	if ((buffer[0] == 033 && buffer[1] == '[' && buffer[2] == '3'
 		&& buffer[3] == '~')
@@ -96,21 +96,6 @@ void				ft_select(t_select *sel, int *pos)
 		cursor_move(pos, sel);
 		ft_bzero(buffer, sizeof(buffer));
 		read(0, buffer, 5);
-		if (buffer[0] == 033 && buffer[1] == 0)
-			return ;
-		else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'C')
-			move_right(pos, sel);
-		else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'D')
-			move_left(pos, sel);
-		else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'A')
-			move_up(pos, sel);
-		else if (buffer[0] == 033 && buffer[1] == '[' && buffer[2] == 'B')
-			move_down(pos, sel);
-		else if (buffer[0] == ' ' && buffer[1] == 0)
-			select_arg(sel, pos);
-		else if (is_del_or_back(buffer))
-			delete_arg(sel, pos);
-		//else if (buffer[0] == '\n' && buffer[1] == 0)
-		//	return_selected();
+		sel_buf(buffer, pos, sel);
 	}
 }
