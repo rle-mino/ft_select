@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 18:30:49 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 15:14:00 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 16:32:26 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int				no_space(t_select *sel)
 	{
 		buffer2 = buffer;
 		tputs(tgetstr("cl", &buffer2), 1, putint);
-		ft_putstr_fd("NO SUFFICIENT SPACE", get_fd(-1));
+		ft_putstr_fd("INSUFFICIENT SPACE", get_fd(-1));
 		sel->space = 0;
 		return (1);
 	}

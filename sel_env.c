@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:19:25 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 11:52:31 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 16:38:04 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int						init_env(t_select *sel)
 		sel_error(ENV_ERROR);
 	signal(SIGINT, res_and_quit);
 	signal(SIGKILL, res_and_quit);
+	signal(SIGTERM, res_and_quit);
 	signal(SIGTSTP, suspend);
 	signal(SIGWINCH, restart_display);
 	if (signal(SIGCONT, restart))
