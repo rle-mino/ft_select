@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:02:48 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 12:54:42 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 15:15:50 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <termios.h>
 # include <sys/ioctl.h>
 # include <signal.h>
-
-# define DEBUG fpf("\x1B[36m%d - %s - %s\n\x1B[0m",__LINE__, __FILE__, __func__)
 
 enum
 {
