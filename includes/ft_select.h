@@ -6,13 +6,14 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:02:48 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 15:15:50 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/25 13:32:41 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 # include "libft.h"
+# include "colors.h"
 # include <fcntl.h>
 # include <curses.h>
 # include <term.h>

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/20 18:30:49 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 16:32:26 by rle-mino         ###   ########.fr       */
+/*   Created: 2016/04/25 16:20:55 by rle-mino          #+#    #+#             */
+/*   Updated: 2016/04/25 16:55:58 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int				is_last(int pos, int max)
 {
-	return ((max - pos) < 10 ? 1 : 0);
+	return ((max - pos) < 1 ? 1 : 0);
 }
 
 static int				no_space(t_select *sel)
@@ -22,11 +22,12 @@ static int				no_space(t_select *sel)
 	char		*buffer2;
 	char		buffer[1024];
 
-	if (sel->io->ws_col - 10 < sel->max_len + 2 ||
-		((sel->io->ws_col - 10) * sel->io->ws_row) < sel->nb_arg *
-		(sel->max_len + 2) || (((sel->max_len + 2) * sel->io->ws_row) /
-		((sel->io->ws_col - 10) / (sel->max_len + 2)) >
-		(sel->io->ws_row * (sel->io->ws_col - 10))))
+	if (sel->io->ws_col < sel->max_len + 2 ||
+		((sel->io->ws_col) * (sel->io->ws_row)) <=
+		(sel->nb_arg + sel->io->ws_row) * (sel->max_len + 2)
+		|| (((sel->max_len + 2) * sel->io->ws_row) /
+		((sel->io->ws_col) / (sel->max_len + 2)) >
+		(sel->io->ws_row * (sel->io->ws_col))))
 	{
 		buffer2 = buffer;
 		tputs(tgetstr("cl", &buffer2), 1, putint);
@@ -79,7 +80,7 @@ void					display_arg(t_arg *arg, t_select *sel)
 	{
 		tmp->x = i;
 		tmp->y = y;
-		if ((i + sel->max_len) >= (sel->io->ws_col - 1))
+		if ((i + (sel->max_len + 2)) >= (sel->io->ws_col - 1))
 		{
 			i = 0;
 			++y;
