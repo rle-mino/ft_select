@@ -6,7 +6,7 @@
 /*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 10:10:49 by rle-mino          #+#    #+#             */
-/*   Updated: 2015/12/14 17:36:22 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 17:54:32 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ void			*ft_memcpy(void *dst, const void *src, size_t n)
 	unsigned char		*s;
 	size_t				i;
 
-	i = 0;
+	i = -1;
 	d = (unsigned char *)dst;
 	s = (unsigned char *)src;
-	while (i < n)
-	{
+	while (++i < n)
 		d[i] = s[i];
-		i++;
-	}
 	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 16:51:56 by rle-mino          #+#    #+#             */
-/*   Updated: 2015/12/03 17:33:26 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 17:55:27 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ void		*ft_memset(void *b, int c, size_t len)
 	unsigned char	*d;
 
 	d = (unsigned char*)b;
-	j = 0;
-	while (j < len)
-	{
+	j = -1;
+	while (++j < len)
 		d[j] = c;
-		j++;
-	}
 	return (d);
 }

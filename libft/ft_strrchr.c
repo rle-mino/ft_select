@@ -6,7 +6,7 @@
 /*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 12:13:57 by rle-mino          #+#    #+#             */
-/*   Updated: 2015/11/30 20:48:46 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 18:05:41 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ char		*ft_strrchr(const char *s, int c)
 	while (i >= 0)
 	{
 		if (s[i] == c)
-		{
 			return ((char*)s + i);
-		}
 		i--;
 	}
 	return (NULL);

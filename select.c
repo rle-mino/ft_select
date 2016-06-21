@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 18:09:56 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/25 13:41:03 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/21 18:15:25 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void				cursor_move(int *pos, t_select *sel)
 {
-	char	buffer1[1024];
-	char	*buffer2;
+	char		*color_and_name;
 
 	if (sel->space == 0)
 		return ;
-	buffer2 = buffer1;
-	tputs(tgoto(tgetstr("cm", &buffer2), pos[0], pos[1]), 1, putint);
-	tputs(tgetstr("us", &buffer2), 1, putint);
+	tputs(tgoto(tgetstr("cm", NULL), pos[0], pos[1]), 1, putint);
+	tputs(tgetstr("us", NULL), 1, putint);
 	if (sel->first->selected == 1)
-		tputs(tgetstr("so", &buffer2), 1, putint);
-	ft_putstr_fd(sel->first->name, get_fd(-1));
+		tputs(tgetstr("so", NULL), 1, putint);
+	color_and_name = get_color(sel->first);
+	ft_putstr_fd(color_and_name, get_fd(-1));
+	free(color_and_name);
 	if (sel->first->selected == 1)
-		tputs(tgetstr("se", &buffer2), 1, putint);
-	tputs(tgetstr("ue", &buffer2), 1, putint);
-	tputs(tgoto(tgetstr("cm", &buffer2), pos[0], pos[1]), 1, putint);
+		tputs(tgetstr("se", NULL), 1, putint);
+	tputs(tgetstr("ue", NULL), 1, putint);
+	tputs(tgoto(tgetstr("cm", NULL), pos[0], pos[1]), 1, putint);
 }
 
 void				select_arg(t_select *sel, int *pos)
@@ -95,11 +95,13 @@ void				ft_select(t_select *sel, int *pos)
 
 	i = 0;
 	display_arg(sel->first, sel);
+	update_status(sel);
 	while (42)
 	{
 		cursor_move(pos, sel);
 		ft_bzero(buffer, sizeof(buffer));
 		read(0, buffer, 5);
 		sel_buf(buffer, pos, sel);
+		update_status(sel);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/18 13:55:13 by rle-mino          #+#    #+#              #
-#    Updated: 2016/04/24 15:16:43 by rle-mino         ###   ########.fr        #
+#    Updated: 2016/06/21 14:53:12 by rle-mino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,25 +24,30 @@ SRC		=				main.c			\
 						get_var.c		\
 						sel_buf.c		\
 						end_prog.c		\
+						status_bar.c	\
 
-OBJ		=				$(SRC:.c=.o)
+OBJ_PATH	=			obj/
 
-FLAGS	=				-Wall -Wextra -Werror
+OBJ_NAME	=			$(SRC:.c=.o)
+OBJ			=			$(addprefix $(OBJ_PATH),$(OBJ_NAME))
+FLAGS		=			-Wall -Wextra -Werror
 
 .PHONY: all, clean, fclean, re
 
 $(NAME): $(OBJ)
-	make -C libft
-	gcc -o $(NAME) $(FLAGS) -lcurses $(OBJ) -lft -L ./libft -I includes
+		make -C libft
+		gcc -o $(NAME) $(FLAGS) -lmlx $^ -lft -L ./libft -I includes -lcurses
 
 all: $(NAME)
 
-%.o: %.c
+$(OBJ_PATH)%.o: %.c
+	@mkdir -p obj
 	gcc -c $< -o $@ -I includes $(FLAGS)
 
 clean:
+	make -C libft/printf fclean
 	make -C libft fclean
-	rm -rf $(OBJ)
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
 	rm -rf $(NAME)

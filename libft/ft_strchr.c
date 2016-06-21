@@ -6,7 +6,7 @@
 /*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 12:36:37 by rle-mino          #+#    #+#             */
-/*   Updated: 2015/12/01 17:12:34 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 17:58:27 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,10 @@ char		*ft_strchr(const char *s, int c)
 {
 	int		i;
 
-	i = 0;
-	while (s[i])
-	{
+	i = -1;
+	while (s[++i])
 		if (s[i] == c)
-		{
 			return ((char*)s + i);
-		}
-		i++;
-	}
 	if (s[i] == '\0' && c == 0)
 		return ((char*)s + i);
 	return (NULL);

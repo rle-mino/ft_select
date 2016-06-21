@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 15:06:37 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/02/13 00:26:46 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/21 15:50:54 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+enum
+{
+	MALLER,
+	OPERROR
+};
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -91,5 +97,7 @@ void				ft_free_td(char **str, int d2);
 int					ft_isspace(char c);
 int					get_next_line(int const fd, char **line);
 int					fpf(char const *format, ...);
+int					ft_error(int info);
+char				**ft_free_tab(char **split);
 
 #endif

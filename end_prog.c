@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 11:30:32 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 11:47:12 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/21 13:14:55 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void		end_select(t_select *sel, int info)
 		{
 			if (args->selected == 1)
 			{
-				fpf("%s ", args->name);
+				ft_putstr(args->name);
+				ft_putchar(' ');
 			}
 			args = args->next;
 		}

@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 18:31:27 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 18:30:10 by rle-mino         ###   ########.fr       */
+/*   Created: 2016/06/21 15:48:53 by rle-mino          #+#    #+#             */
+/*   Updated: 2016/06/21 15:49:39 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strncpy(char *dst, const char *src, size_t n)
+char		**ft_free_tab(char **split)
 {
-	size_t		i;
+	int			i;
 
-	i = 0;
-	while (i < n && src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	while (i < n)
-		dst[i++] = '\0';
-	return (dst);
+	i = -1;
+	while (split[++i])
+		free(split[i]);
+	free(split);
+	return (NULL);
 }

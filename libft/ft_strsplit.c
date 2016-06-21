@@ -6,7 +6,7 @@
 /*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/28 16:29:50 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/03/09 23:46:05 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/05/15 02:53:23 by ishafie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		nb_word(char const *s, char c)
 
 	k = 0;
 	i = 0;
-	while (s[i] == c)
+	while (s[i] == c && s[i])
 		i++;
 	while (s[i])
 	{
@@ -46,9 +46,9 @@ static char		*nblet(char const *s, char c, const int j)
 	i = 0;
 	while (m >= 0)
 	{
-		while (s[i] == c && s[i])
+		while (s[i] && s[i] == c)
 			i++;
-		while (s[i] != c && s[i] && m > 0)
+		while (s[i] && s[i] != c && m > 0)
 			i++;
 		m--;
 	}
@@ -72,8 +72,7 @@ char			**ft_strsplit(char const *s, char c)
 		return (NULL);
 	j = 0;
 	i = nb_word(s, c);
-	tab = (char **)ft_memalloc(sizeof(char *) * (i + 1));
-	if (tab == NULL)
+	if (!(tab = (char **)ft_memalloc(sizeof(char *) * (i + 1))))
 		return (NULL);
 	while (i)
 	{

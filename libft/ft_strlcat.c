@@ -6,7 +6,7 @@
 /*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 10:24:34 by rle-mino          #+#    #+#             */
-/*   Updated: 2015/12/15 17:13:09 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 18:01:49 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,7 @@ size_t			ft_strlcat(char *dst, const char *src, size_t size)
 		i++;
 	a = i;
 	while (i < (size - 1) && src[j])
-	{
-		dst[i] = src[j];
-		i++;
-		j++;
-	}
+		dst[i++] = src[j++];
 	if (size > a)
 		dst[i] = '\0';
 	return (ft_strlen(src) + a);

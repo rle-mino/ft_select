@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:02:20 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/02/26 10:39:59 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/02/26 10:27:40 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_struct
 	int			min;
 }				t_struct;
 
-int				fpf(char const *format, ...);
+int				ft_printf(char const *format, ...);
 int				noflag(va_list ap, char conv);
 int				pf_print_var(t_struct data, char conv, va_list ap);
 void			fill_data_flag(char c, t_struct *data);
@@ -56,6 +56,7 @@ size_t			ft_strlen(char const *str);
 void			ft_putchar(char c);
 void			ft_putstr(char const *str);
 void			*ft_memalloc(size_t size);
+void			ftp_putnbr(int n, int flag);
 void			ft_bzero(void *s, size_t n);
 int				ft_atoi(const char *str);
 int				pf_retbin(size_t nbr);

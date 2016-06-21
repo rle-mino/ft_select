@@ -6,7 +6,7 @@
 /*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 18:21:28 by rle-mino          #+#    #+#             */
-/*   Updated: 2015/12/07 17:11:08 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/04/24 17:59:21 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ char		*ft_strcpy(char *dst, const char *src)
 {
 	size_t		i;
 
-	i = 0;
-	while (i <= ft_strlen(src))
-	{
+	i = -1;
+	while (++i <= ft_strlen(src))
 		dst[i] = src[i];
-		i++;
-	}
 	return (dst);
 }

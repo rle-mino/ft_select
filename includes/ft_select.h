@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:02:48 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/25 13:32:41 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/21 18:15:22 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <termios.h>
 # include <sys/ioctl.h>
 # include <signal.h>
+# include <sys/stat.h>
+# include <time.h>
 
 enum
 {
@@ -33,6 +35,7 @@ enum
 typedef struct		s_args
 {
 	char			*name;
+	struct stat		stat_file;
 	struct s_args	*next;
 	struct s_args	*prev;
 	int				selected;
@@ -77,5 +80,7 @@ void				delete_arg(t_select *sel, int *pos);
 void				select_arg(t_select *sel, int *pos);
 void				sel_buf(char *buffer, int *pos, t_select *sel);
 void				end_select(t_select *sel, int info);
+void				update_status(t_select *sel);
+char				*get_color(t_arg *arg);
 
 #endif

@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_cpy_tab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 18:31:27 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 18:30:10 by rle-mino         ###   ########.fr       */
+/*   Created: 2016/05/01 17:44:38 by rle-mino          #+#    #+#             */
+/*   Updated: 2016/05/01 17:48:14 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strncpy(char *dst, const char *src, size_t n)
+char		**ft_cpy_tab(char **src)
 {
-	size_t		i;
+	char		**cpy;
+	int			i;
 
 	i = 0;
-	while (i < n && src[i])
+	while (src[i])
+		i++;
+	cpy = ft_memalloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (src[i])
 	{
-		dst[i] = src[i];
+		cpy[i] = ft_strdup(src[i]);
 		i++;
 	}
-	while (i < n)
-		dst[i++] = '\0';
-	return (dst);
+	return (cpy);
 }

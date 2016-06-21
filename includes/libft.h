@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 15:06:37 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/02/13 00:26:46 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/21 15:51:12 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ void				ft_free_td(char **str, int d2);
 int					ft_isspace(char c);
 int					get_next_line(int const fd, char **line);
 int					fpf(char const *format, ...);
+char				**ft_free_tab(char **split);
 
 #endif

@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 18:31:27 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 18:30:10 by rle-mino         ###   ########.fr       */
+/*   Created: 2016/04/26 00:58:24 by rle-mino          #+#    #+#             */
+/*   Updated: 2016/04/26 01:04:14 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strncpy(char *dst, const char *src, size_t n)
+int			ft_error(int info)
 {
-	size_t		i;
-
-	i = 0;
-	while (i < n && src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	while (i < n)
-		dst[i++] = '\0';
-	return (dst);
+	if (info == MALLER || info == OPERROR)
+		exit(EXIT_FAILURE);
+	return (0);
 }

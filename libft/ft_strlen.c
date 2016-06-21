@@ -6,7 +6,7 @@
 /*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 17:55:58 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/03/11 17:48:42 by rle-mino         ###   ########.fr       */
+/*   Updated: 2015/12/25 18:37:08 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ size_t		ft_strlen(char const *str)
 	size_t	i;
 
 	i = 0;
-	if (str == NULL)
-		return (0);
 	while (str[i])
 		i++;
 	return (i);
