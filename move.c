@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 16:59:19 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/23 22:07:39 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/22 15:14:40 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static void				put_move(t_select *sel)
 {
-	char	buffer[1024];
-	char	*buffer2;
+	char	*name_and_color;
 
-	buffer2 = buffer;
 	if (sel->first->selected == 1)
-		tputs(tgetstr("so", &buffer2), 1, putint);
-	ft_putstr_fd(sel->first->name, get_fd(-1));
+		tputs(tgetstr("so", NULL), 1, putint);
+	name_and_color = get_color(sel->first);
+	ft_putstr_fd(name_and_color, get_fd(-1));
+	free(name_and_color);
 	if (sel->first->selected == 1)
-		tputs(tgetstr("se", &buffer2), 1, putint);
+		tputs(tgetstr("se", NULL), 1, putint);
 }
 
 void					move_right(int *pos, t_select *sel)
@@ -31,6 +31,7 @@ void					move_right(int *pos, t_select *sel)
 	sel->first = sel->first->next;
 	pos[0] = sel->first->x;
 	pos[1] = sel->first->y;
+	cursor_move(pos, sel);
 }
 
 void					move_left(int *pos, t_select *sel)
@@ -39,6 +40,7 @@ void					move_left(int *pos, t_select *sel)
 	sel->first = sel->first->prev;
 	pos[0] = sel->first->x;
 	pos[1] = sel->first->y;
+	cursor_move(pos, sel);
 }
 
 void					move_up(int *pos, t_select *sel)
@@ -62,6 +64,7 @@ void					move_up(int *pos, t_select *sel)
 	}
 	pos[0] = sel->first->x;
 	pos[1] = sel->first->y;
+	cursor_move(pos, sel);
 }
 
 void					move_down(int *pos, t_select *sel)
@@ -85,4 +88,5 @@ void					move_down(int *pos, t_select *sel)
 	}
 	pos[0] = sel->first->x;
 	pos[1] = sel->first->y;
+	cursor_move(pos, sel);
 }

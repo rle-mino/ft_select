@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 11:22:24 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 12:59:57 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/22 14:49:46 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ void			sel_buf(char *buffer, int *pos, t_select *sel)
 		delete_arg(sel, pos);
 	else if (buffer[0] == '\n' && buffer[1] == 0)
 		end_select(sel, W_RET);
+	else if (ft_isprint(buffer[0]) && !buffer[1])
+		get_next_occur(sel, buffer[0]);
 }

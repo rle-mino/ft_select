@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rle-mino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 18:00:43 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/04/24 17:52:52 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/22 16:23:38 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		*ft_memalloc(size_t size)
 	void	*r;
 
 	if (!(r = malloc(size)))
-		return (NULL);
+		exit(EXIT_FAILURE);
 	ft_bzero(r, size);
 	return (r);
 }

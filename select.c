@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 18:09:56 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/06/21 18:15:25 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/22 15:20:29 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ void				cursor_move(int *pos, t_select *sel)
 
 void				select_arg(t_select *sel, int *pos)
 {
-	char	buffer1[1024];
-	char	*buffer2;
+	char	*color_and_name;
 
-	buffer2 = buffer1;
 	sel->first->selected = sel->first->selected ^ 1;
+	color_and_name = get_color(sel->first);
 	if (sel->first->selected)
 	{
-		tputs(tgetstr("so", &buffer2), 1, putint);
-		ft_putstr_fd(sel->first->name, get_fd(-1));
-		tputs(tgetstr("se", &buffer2), 1, putint);
+		tputs(tgetstr("so", NULL), 1, putint);
+		ft_putstr_fd(color_and_name, get_fd(-1));
+		tputs(tgetstr("se", NULL), 1, putint);
 	}
 	else
-		ft_putstr_fd(sel->first->name, get_fd(-1));
+		ft_putstr_fd(color_and_name, get_fd(-1));
+	free(color_and_name);
 	sel->first = sel->first->next;
 	pos[0] = sel->first->x;
 	pos[1] = sel->first->y;
@@ -96,9 +96,9 @@ void				ft_select(t_select *sel, int *pos)
 	i = 0;
 	display_arg(sel->first, sel);
 	update_status(sel);
+	cursor_move(pos, sel);
 	while (42)
 	{
-		cursor_move(pos, sel);
 		ft_bzero(buffer, sizeof(buffer));
 		read(0, buffer, 5);
 		sel_buf(buffer, pos, sel);
