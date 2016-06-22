@@ -6,7 +6,7 @@
 #    By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/18 13:55:13 by rle-mino          #+#    #+#              #
-#    Updated: 2016/06/22 18:49:32 by rle-mino         ###   ########.fr        #
+#    Updated: 2016/06/22 19:04:19 by rle-mino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC		=				main.c			\
 						end_prog.c		\
 						status_bar.c	\
 						next_occur.c	\
+						time.c			\
 
 OBJ_PATH	=			obj/
 

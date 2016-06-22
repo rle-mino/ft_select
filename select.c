@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 18:09:56 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/06/22 15:20:29 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/22 19:23:44 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void				delete_arg(t_select *sel, int *pos)
 		pos[0] = sel->first->x;
 		pos[1] = sel->first->y;
 		sel->nb_arg--;
+		cursor_move(pos, sel);
 	}
 }
 

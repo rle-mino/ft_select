@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/18 19:02:48 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/06/22 14:42:59 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/22 19:04:05 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void				end_select(t_select *sel, int info);
 void				update_status(t_select *sel);
 char				*get_color(t_arg *arg);
 void				get_next_occur(t_select *sel, char find);
+void				adjust_t(time_t ti);
 
 #endif

@@ -6,47 +6,11 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/21 14:45:33 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/06/21 19:39:45 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/22 19:07:33 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
-void			delete_useless_time(char **split)
-{
-	int		i;
-
-	i = ft_strlen(split[3]);
-	while (--i)
-	{
-		if (split[3][i] == ':')
-		{
-			split[3][i] = '\0';
-			break ;
-		}
-	}
-}
-
-void			adjust_t(time_t ti)
-{
-	char	**split;
-	char	*tmp;
-
-	tmp = ctime(&ti);
-	ft_putchar_fd(' ', get_fd(-1));
-	split = ft_strsplit(tmp, ' ');
-	ft_putstr_fd(split[1], get_fd(-1));
-	ft_putchar_fd(' ', get_fd(-1));
-	if (ft_strlen(split[2]) == 1)
-		ft_putchar_fd('0', get_fd(-1));
-	ft_putstr_fd(split[2], get_fd(-1));
-	delete_useless_time(split);
-	split[4][ft_strlen(split[4]) - 1] = '\0';
-	ft_putchar_fd(' ', get_fd(-1));
-	ft_putstr_fd(split[4], get_fd(-1));
-	ft_putchar_fd(' ', get_fd(-1));
-	split = ft_free_tab(split);
-}
 
 void			display_arg_name(t_select *sel)
 {
@@ -62,31 +26,27 @@ void			display_arg_name(t_select *sel)
 		ft_putchar_fd(' ', get_fd(-1));
 }
 
+void			put_type(char *color, char *type)
+{
+	ft_putstr_fd(color, get_fd(-1));
+	ft_putstr_fd(type, get_fd(-1));
+}
+
 void			display_type(t_select *sel)
 {
 	mode_t	st_mode;
 
 	st_mode = sel->first->stat_file.st_mode;
 	if (S_ISDIR(st_mode))
-	{
-		ft_putstr_fd(CU_YELLOW, get_fd(-1));
-		ft_putstr_fd(" DIRECTORY ", get_fd(-1));
-	}
+		put_type(CU_YELLOW, " DIRECTORY  ");
 	else if (S_ISLNK(st_mode))
-	{
-		ft_putstr_fd(CU_MAGENTA, get_fd(-1));
-		ft_putstr_fd(" SYMB LINK ", get_fd(-1));
-	}
+		put_type(CU_MAGENTA, " SYMB LINK  ");
 	else if (S_ISREG(st_mode))
-	{
-		ft_putstr_fd(CU_RED, get_fd(-1));
-		ft_putstr_fd(" FILE      ", get_fd(-1));
-	}
+		put_type(CU_RED, " FILE       ");
+	else if (S_ISCHR(st_mode) || S_ISBLK(st_mode))
+		put_type(CU_BLUE, " PERIPHERAL ");
 	else
-	{
-		ft_putstr_fd(CU_WHITE, get_fd(-1));
-		ft_putstr_fd(" ????????? ", get_fd(-1));
-	}
+		put_type(CU_WHITE, " ?????????  ");
 }
 
 void			update_status(t_select *sel)

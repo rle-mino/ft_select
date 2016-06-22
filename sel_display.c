@@ -6,7 +6,7 @@
 /*   By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 16:20:55 by rle-mino          #+#    #+#             */
-/*   Updated: 2016/06/21 18:17:21 by rle-mino         ###   ########.fr       */
+/*   Updated: 2016/06/22 19:11:05 by rle-mino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char					*get_color(t_arg *arg)
 		color_and_name = ft_strjoin(C_MAGENTA, arg->name);
 	else if (S_ISREG(arg->stat_file.st_mode))
 		color_and_name = ft_strjoin(C_RED, arg->name);
+	else if (S_ISCHR(arg->stat_file.st_mode) || S_ISBLK(arg->stat_file.st_mode))
+		color_and_name = ft_strjoin(C_BLUE, arg->name);
 	else
 		color_and_name = ft_strjoin(C_WHITE, arg->name);
 	return (color_and_name);
@@ -47,7 +49,9 @@ static int				no_space(t_select *sel)
 	{
 		buffer2 = buffer;
 		tputs(tgetstr("cl", &buffer2), 1, putint);
+		ft_putstr_fd(CLU_RED, get_fd(-1));
 		ft_putstr_fd("INSUFFICIENT SPACE", get_fd(-1));
+		ft_putstr_fd(C_RES, get_fd(-1));
 		sel->space = 0;
 		return (1);
 	}
