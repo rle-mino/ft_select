@@ -6,7 +6,7 @@
 #    By: rle-mino <rle-mino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/18 13:55:13 by rle-mino          #+#    #+#              #
-#    Updated: 2016/06/22 13:39:22 by rle-mino         ###   ########.fr        #
+#    Updated: 2016/06/22 18:49:32 by rle-mino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ $(OBJ_PATH)%.o: %.c
 	gcc -c $< -o $@ -I includes $(FLAGS)
 
 clean:
-	make -C libft/printf fclean
 	make -C libft fclean
 	rm -rf $(OBJ_PATH)
 
